@@ -1,63 +1,22 @@
 // Models.java:
 
-
 package com.company;
 
-class Cup extends Dish
+interface IPriceable
 {
-    private String color;
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Кружечка. Параметры:\nЦвет - %s\nРазмеры: (x, y, z) = (%d, %d, %d)",
-                getColor(), (int)size_x, (int)size_y, (int)size_z);
-    }
+    int getPrice();
 }
 
-class Plate extends Dish
+class Product implements IPriceable
 {
-    private String model;
-    private float radius;
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public float getRadius() {
-        return radius;
-    }
-
-    public void setRadius(float radius) {
-        this.radius = radius;
-    }
+    private int price;
 
     @Override
-    public String toString() {
-        return String.format("Тарелочка. Параметры:\nМодель - %s\nРадиус - %d\nРазмеры: (x, y, z) = (%d, %d, %d)",
-                getModel(), (int)getRadius(), (int)size_x, (int)size_y, (int)size_z);
+    public int getPrice() {
+        return price;
     }
-}
 
-abstract class Dish
-{
-    protected float size_x, size_y, size_z;
-
-    public void setSize(float x, float y, float z)
-    {
-        size_x = x;
-        size_y = y;
-        size_z = z;
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
