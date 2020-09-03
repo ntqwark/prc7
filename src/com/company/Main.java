@@ -1,30 +1,23 @@
-// Main.java:
-
 package com.company;
 
-class Main
-{
-    public static void main(String[] args)
-    {
-        Author author1 = new Author("Dmitriy", "dima@domain.url", 'M');
-        Author author2 = new Author("Egor", "egor@domain.url", 'M');
+import java.io.*;
+import java.lang.String;
 
-        System.out.println(author1);
-        System.out.println();
-        System.out.println(author2);
+public class Main
+{
+    public static void main(String[] args) {
+        Circle[] t = new Circle[10];
+
+        for (int i = 0; i < 10; i++) {
+            t[i] = new Circle();
+
+            t[i].setRadius(i + 1);
+            t[i].setColor("Color number " + i);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            System.out.println(t[i].toString());
+        }
     }
 }
-
-// Output:
-
-/*
-Author:
-Name = Dmitriy
-Email = dima@domain.url
-Gender = M
-
-Author:
-Name = Egor
-Email = egor@domain.url
-Gender = M
- */

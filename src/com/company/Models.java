@@ -1,42 +1,32 @@
-// Models.java
-
 package com.company;
 
-class Author
+class Circle
 {
-    String name;
-    String email;
-    char gender;
+    private int radius;
+    private String color;
 
-    public Author(String name, String email, char gender)
+    public void setRadius(int radius)
     {
-        this.name = name;
-        this.email = email;
-        this.gender = gender;
+        this.radius = radius;
     }
 
-    String getName()
+    public int getRadius()
     {
-        return name;
+        return radius;
     }
 
-    String getEmail()
+    public void setColor(String color)
     {
-        return email;
+        this.color = color ;
     }
 
-    void setEmail(String email)
+    public String getColor()
     {
-        this.email = email;
+        return color;
     }
 
-    char getGender()
+    public String toString()
     {
-        return gender;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Author:\nName = %s\nEmail = %s\nGender = %c", getName(), getEmail(), getGender());
+        return String.format("Circle Info: radius=%d, color=%s", getRadius(), getColor());
     }
 }
