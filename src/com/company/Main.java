@@ -2,154 +2,65 @@
 
 package com.company;
 
-import java.awt.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-interface IDrawable
-{
-    Polygon getPolygone();
-}
-
-class Quadrangle implements IDrawable
-{
-    int[] xCoords = new int[4];
-    int[] yCoords = new int[4];
-
-    public Quadrangle(Point[] points)
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            xCoords[i] = points[i].x;
-            yCoords[i] = points[i].y;
-        }
-    }
-
-    public Quadrangle() { }
-
-    @Override
-    public Polygon getPolygone() {
-        return new Polygon(xCoords, yCoords, 4);
-    }
-}
-
-class Rect extends Quadrangle
-{
-    int[] xCoords = new int[4];
-    int[] yCoords = new int[4];
-
-    public Rect(int x1, int y1, int x2, int y2)
-    {
-        xCoords[0] = x1;
-        yCoords[0] = y1;
-
-        xCoords[1] = x1;
-        yCoords[1] = y2;
-
-        xCoords[2] = x2;
-        yCoords[2] = y2;
-
-        xCoords[3] = x2;
-        yCoords[3] = y1;
-    }
-
-    @Override
-    public Polygon getPolygone() {
-        return new Polygon(xCoords, yCoords, 4);
-    }
-}
-
 public class Main {
 
-    private JFrame mainMap;
-
-    public Main() {
-
-        initComponents();
-
-    }
-
-    private void drawShape(Graphics graphics, Color color, IDrawable drawable)
+    // Задание 1
+    static void func1(int n)
     {
-        var oldColor = graphics.getColor();
-        graphics.setColor(color);
+        int k = 0;
 
-        graphics.fillPolygon((drawable.getPolygone()));
-
-        graphics.setColor(oldColor);
-    }
-
-    public int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
-
-    private Color getRandomColor()
-    {
-        int color = getRandomNumber(1, 5);
-
-        switch (color)
+        for (int i = 0; i < n; i++)
         {
-            case 1: return new Color(253, 79, 79);
-            case 2: return new Color(79, 253, 113);
-            case 3: return new Color(79, 166, 253);
-            case 4: return new Color(253, 195, 79);
-            case 5: return new Color(253, 79, 219);
-        }
+            if (i != n - 1) System.out.print((k + 1) + ", ");
+            else System.out.println(k + 1);
 
-        return new Color(0, 255, 0);
-    }
-
-    private void drawShapes(Graphics graphics)
-    {
-        int row = 0, collumn = 0;
-        int size = 100;
-
-        for (int i = 1; i < 21; i++)
-        {
-            Point startPos = new Point(row++ * size + 20, collumn * size +  20);
-            var rect = new Rect(startPos.x, startPos.y, startPos.x + size - 20 , startPos.y + size - 20);
-
-            drawShape(graphics, getRandomColor(), rect);
-
-            if (i % 5 == 0)
-            {
-                collumn++;
-                row = 0;
-            }
+            if (i == k * (k + 1))
+                k++;
         }
     }
 
-    private void initComponents() {
+    // Задание 2
+    static void func2(int n)
+    {
+        func3(1, n);
+    }
 
-        mainMap = new JFrame("Ivan T. / Lab5 / 11-19");
-        mainMap.setResizable(false);
+    // Задание 3
+    static void func3(int t0, int t1)
+    {
+        if (t0 > t1) return;
 
-        mainMap.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        for (int i = 0; i < t0; i++)
+        {
+            if (i != t0 - 1) System.out.print(t0 + ", ");
+            else System.out.println(t0);
+        }
 
-        JPanel p = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-
-                drawShapes(g);
-            }
-
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(520, 420);
-            }
-        };
-
-        mainMap.add(p);
-        mainMap.pack();
-        mainMap.setVisible(true);
+        func3(t0 + 1, t1);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Main());
+        func1(3);
+        System.out.println();
+        func2(3);
+        System.out.println();
+        func3(3, 9);
     }
 }
 
-// Result:
-// https://i.imgur.com/sQ5CkRA.png
+// Output:
+/*
+1, 2, 2
+
+1
+2, 2
+3, 3, 3
+
+3, 3, 3
+4, 4, 4, 4
+5, 5, 5, 5, 5
+6, 6, 6, 6, 6, 6
+7, 7, 7, 7, 7, 7, 7
+8, 8, 8, 8, 8, 8, 8, 8
+9, 9, 9, 9, 9, 9, 9, 9, 9
+ */
