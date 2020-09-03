@@ -1,60 +1,96 @@
-// Main.java
+// Main.java:
 
 package com.company;
 
-import java.awt.*;
-import javax.swing.*;
-
-
-class Main extends JFrame {
-    int milanScore  = 0;
-    int madridScore = 0;
-
-    JButton btn1 = new JButton("AC Milan");
-    JButton btn2 = new JButton("Real Madrid");
-
-    JLabel text1 = new JLabel("Result: 0 X 0");
-    JLabel text2 = new JLabel("Last Scorer: N/A");
-    Label  text3 = new Label("Winner: N/A");
-
-    void printResults()
+class Main
+{
+    public static void main(String[] args)
     {
-        text1.setText(String.format("Result: %d X %d", milanScore, madridScore));
+        var shapes = new Shape[10];
 
-        if (milanScore > madridScore) text3.setText("Winner: AC Milan");
-        else text3.setText("Winner: Real Madrid");
-    }
+        for (int i = 0; i < 10; i++)
+        {
+            if (i % 2 == 0)
+            {
+                shapes[i] = new Circle(Math.random() * 100, "Black", i % 3 == 0);
+            }
+            else
+            {
+                shapes[i] = new Rectangle(Math.random() * 100, Math.random() * 100, "Black",  i % 3 == 0);
+            }
+        }
 
-    public Main() {
-        super("prc 4");
-        super.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        setSize(300, 300);
-        setLayout(new FlowLayout());
-
-        add(btn1);
-        add(btn2);
-
-        add(text1);
-        add(text2);
-        add(text3);
-
-        btn1.addActionListener(ae -> {
-            milanScore++;
-            text2.setText("Last Scorer: AC Milan");
-
-            printResults();
-        });
-
-        btn2.addActionListener(ae-> {
-            madridScore++;
-            text2.setText("Last Scorer: Real Madrid");
-
-            printResults();
-        });
-    }
-
-    public static void main(String[] args) {
-        new Main().setVisible(true);
+        for (var current : shapes)
+        {
+            System.out.println(current.toString());
+            System.out.println();
+        }
     }
 }
+
+// Output:
+
+/*
+Circle:
+S=25292,163982
+P=563,764761
+Color=Black
+IsFilled?=true
+
+Rectangle:
+S=2292,427007
+P=195,928678
+Color=Black
+IsFilled?=false
+
+Circle:
+S=8000,897800
+P=317,083975
+Color=Black
+IsFilled?=false
+
+Rectangle:
+S=7852,229244
+P=355,323620
+Color=Black
+IsFilled?=true
+
+Circle:
+S=11312,424698
+P=377,035968
+Color=Black
+IsFilled?=false
+
+Rectangle:
+S=5037,675872
+P=286,707222
+Color=Black
+IsFilled?=false
+
+Circle:
+S=10981,758205
+P=371,484648
+Color=Black
+IsFilled?=true
+
+Rectangle:
+S=1538,613942
+P=170,725174
+Color=Black
+IsFilled?=false
+
+Circle:
+S=147,057075
+P=42,988065
+Color=Black
+IsFilled?=false
+
+Rectangle:
+S=4174,571100
+P=274,180090
+Color=Black
+IsFilled?=true
+
+
+Process finished with exit code 0
+*/
