@@ -2,65 +2,65 @@
 
 package com.company;
 
-public class Main {
+import java.awt.*;
+import javax.swing.*;
 
-    // Задание 1
-    static void func1(int n)
+class Main extends JFrame {
+    int rand = (int) (Math.random() * 10);
+    int attemps = 3;
+
+    JTextField input = new JTextField(20);
+    JButton btn = new JButton("ok.");
+
+    void process()
     {
-        int k = 0;
+        try {
+            int t = Integer.parseInt(input.getText());
 
-        for (int i = 0; i < n; i++)
-        {
-            if (i != n - 1) System.out.print((k + 1) + ", ");
-            else System.out.println(k + 1);
+            if (t > rand)
+                JOptionPane.showMessageDialog(
+                        null,
+                        String.format("Искомое число меньше.\nОставшиеся попытки: %d", attemps--),
+                        "Важная информация",
+                        JOptionPane.INFORMATION_MESSAGE);
 
-            if (i == k * (k + 1))
-                k++;
-        }
+            else if (t < rand)
+                JOptionPane.showMessageDialog(
+                        null,
+                        String.format("Искомое число больше.\nОставшиеся попытки: %d", attemps--),
+                        "Важная информация",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            else {
+                JOptionPane.showMessageDialog(
+                        null,
+                        String.format("Вы выиграли!", attemps--),
+                        "Важная информация",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                System.exit(0);
+            }
+
+            if (attemps < 0) { System.exit(0); }
+        } catch (Exception ignored) { }
     }
 
-    // Задание 2
-    static void func2(int n)
-    {
-        func3(1, n);
-    }
+    public Main() {
+        super("lab 6");
+        super.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-    // Задание 3
-    static void func3(int t0, int t1)
-    {
-        if (t0 > t1) return;
+        setSize(300, 100);
+        setLayout(new FlowLayout());
 
-        for (int i = 0; i < t0; i++)
-        {
-            if (i != t0 - 1) System.out.print(t0 + ", ");
-            else System.out.println(t0);
-        }
+        add(input);
+        add(btn);
 
-        func3(t0 + 1, t1);
+        btn.addActionListener(t -> {
+            process();
+        });
     }
 
     public static void main(String[] args) {
-        func1(3);
-        System.out.println();
-        func2(3);
-        System.out.println();
-        func3(3, 9);
+        new Main().setVisible(true);
     }
 }
-
-// Output:
-/*
-1, 2, 2
-
-1
-2, 2
-3, 3, 3
-
-3, 3, 3
-4, 4, 4, 4
-5, 5, 5, 5, 5
-6, 6, 6, 6, 6, 6
-7, 7, 7, 7, 7, 7, 7
-8, 8, 8, 8, 8, 8, 8, 8
-9, 9, 9, 9, 9, 9, 9, 9, 9
- */
