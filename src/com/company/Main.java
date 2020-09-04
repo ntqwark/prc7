@@ -2,22 +2,26 @@
 
 package com.company;
 
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 
 class Main
 {
     public static void main(String[] args)
     {
-        ArrayList<Integer> list = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++)
+        try(FileWriter writer = new FileWriter("output.txt", false))
         {
-            list.add(i);
+            BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));
+
+            writer.append(obj.readLine());
+            writer.flush();
+
+            System.out.println("Writed!");
         }
-
-        for (var t : list)
+        catch (Exception e)
         {
-            System.out.println(t);
+            System.out.println(e.toString());
         }
     }
 }
