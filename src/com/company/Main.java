@@ -2,92 +2,88 @@
 
 package com.company;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Stack;
+
 class Main
 {
-    static void reverse(Student[] array)
+    static void game(Stack<Integer> first, Stack<Integer> second)
     {
-        for (int i = 0; i < array.length / 2; i++) {
-            Student temp = array[i];
-            array[i] = array[array.length - 1 - i];
-            array[array.length - 1 - i] = temp;
-        }
-    }
+        int step = 0;
 
-    static void insertionSort(Student[] array)
-    {
-        for (int left = 0; left < array.length; left++) {
-            // Вытаскиваем значение элемента
+        while (!first.isEmpty() && !second.isEmpty() && step < 106)
+        {
+            step++;
 
-            var value = array[left];
-            // Перемещаемся по элементам, которые перед вытащенным элементом
-            int i = left - 1;
-            for (; i >= 0; i--) {
-                // Если вытащили значение меньшее — передвигаем больший элемент дальше
-                if (value.getId() < array[i].getId()) {
-                    array[i + 1] = array[i];
-                } else {
-                    // Если вытащенный элемент больше — останавливаемся
-                    break;
-                }
+            var t1 = first.pop();
+            var t2 = second.pop();
+
+            if (t1 > t2)
+            {
+                second.push(t1);
+                second.push(t2);
             }
-            // В освободившееся место вставляем вытащенное значение
-            array[i + 1] = value;
+            else if (t1 < t2)
+            {
+                first.push(t1);
+                first.push(t2);
+            }
+            else
+            {
+                first.push(t1);
+                second.push(t2);
+            }
         }
+
+        if (first.isEmpty()) System.out.println("first " + step);
+        else if (second.isEmpty()) System.out.println("second " + step);
+        else System.out.println("botva");
     }
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
-        var students = Student.getSamples();
+        var first  = new Stack<Integer>();
+        var second = new Stack<Integer>();
 
-        for (var t : students) System.out.println(t);
+        var reader = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println();
-        reverse(students);
+        // Ввод данных для 1ого игрока
 
-        for (var t : students) System.out.println(t);
+        var input = reader.readLine();
+        var splited = input.split(" ");
 
-        System.out.println();
-        insertionSort(students);
+        for (var t : splited)
+        {
+            first.push(Integer.parseInt(t));
+        }
 
-        for (var t : students) System.out.println(t);
+        // Ввод данных для 2ого игрока
+
+        input = reader.readLine();
+        splited = input.split(" ");
+
+        for (var t : splited)
+        {
+            second.push(Integer.parseInt(t));
+        }
+
+        // Собственно сама реализация игры
+
+        game(first, second);
+        main(args);
     }
 }
 
 // Output:
 /*
-Student{ id=1, firstname='Noah', secondname='Adderiy', age=16 }
-Student{ id=2, firstname='Liam', secondname='Allford', age=17 }
-Student{ id=3, firstname='William', secondname='Arnold', age=18 }
-Student{ id=4, firstname='Mason', secondname='Adderiy', age=19 }
-Student{ id=5, firstname='James', secondname='Allford', age=20 }
-Student{ id=6, firstname='Benjamin', secondname='Arnold', age=21 }
-Student{ id=7, firstname='Noah', secondname='Adderiy', age=22 }
-Student{ id=8, firstname='Liam', secondname='Allford', age=23 }
-Student{ id=9, firstname='William', secondname='Arnold', age=24 }
-Student{ id=10, firstname='Mason', secondname='Adderiy', age=25 }
-
-Student{ id=10, firstname='Mason', secondname='Adderiy', age=25 }
-Student{ id=9, firstname='William', secondname='Arnold', age=24 }
-Student{ id=8, firstname='Liam', secondname='Allford', age=23 }
-Student{ id=7, firstname='Noah', secondname='Adderiy', age=22 }
-Student{ id=6, firstname='Benjamin', secondname='Arnold', age=21 }
-Student{ id=5, firstname='James', secondname='Allford', age=20 }
-Student{ id=4, firstname='Mason', secondname='Adderiy', age=19 }
-Student{ id=3, firstname='William', secondname='Arnold', age=18 }
-Student{ id=2, firstname='Liam', secondname='Allford', age=17 }
-Student{ id=1, firstname='Noah', secondname='Adderiy', age=16 }
-
-Student{ id=1, firstname='Noah', secondname='Adderiy', age=16 }
-Student{ id=2, firstname='Liam', secondname='Allford', age=17 }
-Student{ id=3, firstname='William', secondname='Arnold', age=18 }
-Student{ id=4, firstname='Mason', secondname='Adderiy', age=19 }
-Student{ id=5, firstname='James', secondname='Allford', age=20 }
-Student{ id=6, firstname='Benjamin', secondname='Arnold', age=21 }
-Student{ id=7, firstname='Noah', secondname='Adderiy', age=22 }
-Student{ id=8, firstname='Liam', secondname='Allford', age=23 }
-Student{ id=9, firstname='William', secondname='Arnold', age=24 }
-Student{ id=10, firstname='Mason', secondname='Adderiy', age=25 }
-
-Process finished with exit code 0
-
+1 3 5 7 9
+2 4 6 8 0
+first 5
+1 2 3 4 5
+1 2 3 4 5
+botva
+2 4 6 8 0
+1 3 5 7 9
+second 25
  */
