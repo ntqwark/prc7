@@ -8,18 +8,18 @@ import java.util.Stack;
 
 class Main
 {
-	static void pushBack(Stack<Integer> t, int value)
-	{
-		Stack<Integer> t0 = new Stack<Integer>();
-		t0.push(value);
+    static void pushBack(Stack<Integer> t, int value)
+    {
+        Stack<Integer> t0 = new Stack<Integer>();
+        t0.push(value);
 
-		while (!t.isEmpty())
-		{
-			t0.push(t.pop());
-		}
+        while (!t.isEmpty())
+        {
+            t0.push(t.pop());
+        }
 
-		t = t0;
-	}
+        t = t0;
+    }
 
     static void game(Stack<Integer> first, Stack<Integer> second)
     {
