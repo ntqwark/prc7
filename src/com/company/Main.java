@@ -8,6 +8,19 @@ import java.util.Stack;
 
 class Main
 {
+	static void pushBack(Stack<Integer> t, int value)
+	{
+		Stack<Integer> t0 = new Stack<Integer>();
+		t0.push(value);
+
+		while (!t.isEmpty())
+		{
+			t0.push(t.pop());
+		}
+
+		t = t0;
+	}
+
     static void game(Stack<Integer> first, Stack<Integer> second)
     {
         int step = 0;
@@ -21,18 +34,18 @@ class Main
 
             if (t1 > t2)
             {
-                second.push(t1);
-                second.push(t2);
+                pushBack(second, t1);
+                pushBack(second, t2);
             }
             else if (t1 < t2)
             {
-                first.push(t1);
-                first.push(t2);
+                pushBack(first, t1);
+                pushBack(first, t2);
             }
             else
             {
-                first.push(t1);
-                second.push(t2);
+                pushBack(first, t1);
+                pushBack(second, t2);
             }
         }
 
@@ -74,16 +87,3 @@ class Main
         main(args);
     }
 }
-
-// Output:
-/*
-1 3 5 7 9
-2 4 6 8 0
-first 5
-1 2 3 4 5
-1 2 3 4 5
-botva
-2 4 6 8 0
-1 3 5 7 9
-second 25
- */
